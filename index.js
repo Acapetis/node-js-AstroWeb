@@ -4,6 +4,8 @@ const ejs = require('ejs')
 const mongoose = require('mongoose')
 const expressSession = require('express-session')
 const flash = require('connect-flash')
+const http = require('http')
+
 
 //mongoDB connect
 mongoose.connect('mongodb+srv://admin:1234@cluster0.v2ntp09.mongodb.net/?retryWrites=true&w=majority')
@@ -27,6 +29,12 @@ global.loggedIn = null;
 //middleware
 const redirectIfAuth = require('./middleware/redirectIfAuth')
 const authMiddleware = require('./middleware/authMiddleware')
+
+//server
+const server = http.createServer((req, res) => {
+    res.writeHead(200, {"Content-Type": "text/plain"})
+    res.end(indexController)
+})
 
 
 app.use(express.static('public'))
